@@ -11,8 +11,10 @@ namespace PayrollService_ADO.Net
     public class EmployeeRepository
     {
         public static string connectionString = @"Data Source = (localdb)\MSSQLLocalDB; Initial Catalog = payroll_services;";
-        //creating object of sqlconnection class
+        //creating object of sqlconnection class and passing connectionstring
         SqlConnection sqlConnection = new SqlConnection(connectionString);
+
+        //This method for retrieve all employee data from database
         public void GetAllEmployeeDetails()
         {
             try
@@ -59,6 +61,25 @@ namespace PayrollService_ADO.Net
                 sqlConnection.Close();
             }
         }
+
+        //This method for update data of employee payroll
+        public int UpdateSalaryQuery()
+        {
+            sqlConnection.Open();
+            string query = "update employee_payroll set BasicPay=3000000 where Name= 'pooja'";
+            SqlCommand sqlCommand = new SqlCommand(query, sqlConnection);
+            int result = sqlCommand.ExecuteNonQuery();
+            if (result != 0)
+            {
+                Console.WriteLine("Updated");
+            }
+            else
+            {
+                Console.WriteLine("Not updated");
+            }
+            sqlConnection.Close();
+            return result;
+        }
     }
 
-}
+}/////////
